@@ -8,21 +8,23 @@ An analysis of **tens of millions of real New York City taxi trips**.
 
 ---
 
-## 🎯 Objective & outcome
+## What I set out to do
 
-**Objective —** give a ride-hailing / taxi operator a data-driven answer to **WHEN** demand
-peaks, **WHERE** it concentrates, and what drives **trip value** — so it can position drivers
-and price trips instead of guessing.
+I wanted a project that wasn't the usual small, tidy CSV — something closer to the messy,
+large-scale data a real company actually deals with. NYC's official taxi data was perfect for
+that: tens of millions of trips, public and well documented. I put myself in the position of a
+ride-hailing operator trying to stop guessing, and asked three practical questions — when is
+demand highest, where is it concentrated, and what really makes a trip valuable?
 
-**What this project does —** cleans and aggregates **37M+ real NYC taxi trips (full-year
-2023)** entirely on a laptop using **DuckDB** SQL, exports compact summary tables, and presents
-demand timing, geographic hotspots, and trip economics in a **Power BI** dashboard with a
-concrete recommendation.
+The thing I most wanted to prove to myself was that I could handle 37 million rows on my own
+laptop without spinning up a cloud cluster. I used DuckDB to clean and aggregate the full 2023
+year in SQL, exported small summary tables from it, and built a Power BI dashboard on top with
+a clear driver-positioning recommendation.
 
-**Did we achieve it? ✅ Yes.** From **37.0M cleaned trips ($1.07B revenue)** we found that
-**airport trips earn ~3.8× the fare of city trips ($54.95 vs $14.46)**, that Manhattan drives
-*volume* while Queens (JFK) drives *value*, and turned it into a driver-positioning +
-peak-timing strategy — all backed by a one-page dashboard.
+**How it turned out:** it ran end to end — 37M cleaned trips, just over $1B in fares — and a
+few findings genuinely surprised me, like airport trips earning roughly 3.8× a normal city
+fare ($54.95 vs $14.46), and Manhattan driving the volume while Queens (JFK) drives the
+high-value runs.
 
 ---
 
