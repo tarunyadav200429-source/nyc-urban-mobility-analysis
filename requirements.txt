@@ -1,0 +1,5 @@
+# Dependencies for the data pipeline.
+duckdb
+pyarrow      # lets DuckDB / the download read Parquet files
+requests
+pandas

@@ -1,0 +1,3 @@
+trip_type,trips,avg_distance_mi,avg_duration_min,avg_fare,avg_total,avg_tip_card
+Airport trip,4081709,13.71,38.3,56.75,77.67,11.83
+City trip,32954520,2.27,13.8,15.18,22.87,3.49
