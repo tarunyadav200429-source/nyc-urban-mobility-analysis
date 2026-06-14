@@ -8,6 +8,24 @@ An analysis of **tens of millions of real New York City taxi trips**.
 
 ---
 
+## 🎯 Objective & outcome
+
+**Objective —** give a ride-hailing / taxi operator a data-driven answer to **WHEN** demand
+peaks, **WHERE** it concentrates, and what drives **trip value** — so it can position drivers
+and price trips instead of guessing.
+
+**What this project does —** cleans and aggregates **37M+ real NYC taxi trips (full-year
+2023)** entirely on a laptop using **DuckDB** SQL, exports compact summary tables, and presents
+demand timing, geographic hotspots, and trip economics in a **Power BI** dashboard with a
+concrete recommendation.
+
+**Did we achieve it? ✅ Yes.** From **37.0M cleaned trips ($1.07B revenue)** we found that
+**airport trips earn ~3.8× the fare of city trips ($54.95 vs $14.46)**, that Manhattan drives
+*volume* while Queens (JFK) drives *value*, and turned it into a driver-positioning +
+peak-timing strategy — all backed by a one-page dashboard.
+
+---
+
 ## The brief (business context)
 
 > A ride-hailing / taxi operator is scaling up in New York City. With thousands of
