@@ -40,7 +40,7 @@ high-value runs.
 > 3. **MONEY** — what drives a high-value trip (distance, time, location, tips), and
 >    where are drivers leaving money on the table?
 
-As the analyst, the questions I set out to answer:
+Sitting in the analyst's seat, here's what I actually went after:
 
 1. What do demand patterns look like across **hour-of-day, day-of-week, and month**?
 2. Which **pickup zones and boroughs** generate the most trips and the most revenue?
@@ -89,17 +89,19 @@ zone IDs into real neighbourhood and borough names for the geographic story.
 
 ## Technical approach
 
-Because this is **~38 million rows** (far beyond Excel, and slow for plain pandas), the
-heavy lifting uses **DuckDB** — a free analytics database that runs standard SQL directly
-over Parquet files and aggregates tens of millions of rows in seconds on a laptop. The
-analysis SQL then produces small, clean, **Power-BI-ready summary tables**.
+At **~38 million rows** this was never going to fit in Excel, and plain pandas was too slow
+for the iterating I wanted to do, so I leaned on **DuckDB** for the heavy lifting. It's a free
+analytics database that runs standard SQL straight over Parquet files and chews through tens of
+millions of rows in seconds on a laptop, which is exactly what I needed. From there my analysis
+SQL boils everything down to small, clean, **Power-BI-ready summary tables**.
 
 ```
 raw Parquet (38M trips)  ->  DuckDB (clean + aggregate with SQL)  ->  small summary tables  ->  Power BI dashboard
 ```
 
-**Build strategy:** the pipeline is developed and validated on **one month** first, then
-scaled to the **full year** — the same way real production pipelines are built.
+**Build strategy:** I built and tested the whole pipeline on **one month** first, got it right,
+then scaled it to the **full year** — which is how I've seen real production pipelines put
+together, rather than trying to wrangle everything at once.
 
 ---
 
@@ -134,7 +136,7 @@ python scripts/03_build_analysis_tables.py # exports the 8 summary CSVs -> data/
 > full year once the pipeline is validated.
 
 ## Progress log
-- [x] **Step 1 — Data acquisition.** Reproducible download of TLC Yellow Taxi + zone lookup (`scripts/01_download_data.py`; 1-month test → full-year switch).
-- [x] **Step 2 — Clean & model with DuckDB.** `scripts/02_build_database.py` builds `data/processed/nyc_mobility.db` (`trips` + `dim_zone`). Documented cleaning rules (date range, sane distance/fare/duration/speed) kept 96.7% of 38M rows; added time, geography, airport, and payment features.
-- [x] **Step 3 — Analysis & insights.** `scripts/03_build_analysis_tables.py` exports 8 Power-BI-ready summary CSVs (demand by hour×day, daily trend, by borough, by zone, airport-vs-city, payment mix, fare-by-distance, KPI summary). Full year: 37M trips, $1.07B in fares; airport trips earn ~3.8× the fare of city trips; JFK is the #1 pickup zone.
-- [x] **Step 4 — Power BI dashboard.** Interactive dashboard (`powerbi/NYC Mobility Dashboard.pbix`, preview above): KPI cards, hour×day demand heatmap, borough/zone geography, airport-vs-city economics, and fare-by-distance.
+- [x] **Step 1 — Data acquisition.** I set up a reproducible download of the TLC Yellow Taxi data plus the zone lookup (`scripts/01_download_data.py`), starting on a 1-month test before flipping it to the full year.
+- [x] **Step 2 — Clean & model with DuckDB.** `scripts/02_build_database.py` builds `data/processed/nyc_mobility.db` (`trips` + `dim_zone`). I wrote down my cleaning rules as I went (date range, sane distance/fare/duration/speed), which kept 96.7% of the 38M rows, and added time, geography, airport, and payment features on top.
+- [x] **Step 3 — Analysis & insights.** `scripts/03_build_analysis_tables.py` exports the 8 Power-BI-ready summary CSVs (demand by hour×day, daily trend, by borough, by zone, airport-vs-city, payment mix, fare-by-distance, KPI summary). Across the full year that's 37M trips and $1.07B in fares, and the things that stood out to me were that airport trips earn ~3.8× the fare of city trips and JFK comes out as the #1 pickup zone.
+- [x] **Step 4 — Power BI dashboard.** I pulled it together into an interactive dashboard (`powerbi/NYC Mobility Dashboard.pbix`, preview above) with KPI cards, an hour×day demand heatmap, borough/zone geography, airport-vs-city economics, and fare-by-distance.
